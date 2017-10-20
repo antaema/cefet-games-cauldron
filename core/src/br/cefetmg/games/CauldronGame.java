@@ -70,7 +70,7 @@ public class CauldronGame extends ApplicationAdapter {
         // solicita carregamento dos 2 modelos 3D da cena
         assets.load("caldeirao.obj", Model.class);
         assets.load("fogueira.obj", Model.class);
-
+         
         // instancia e configura 2 tipos de renderizadores de partículas:
         // 1. Billboards (para fogo)
         // 2. PointSprites (para bolhas)
@@ -88,8 +88,13 @@ public class CauldronGame extends ApplicationAdapter {
         // solicita o carregamento dos efeitos de partículas
         ParticleEffectLoader.ParticleEffectLoadParameter loadParam = new ParticleEffectLoader.ParticleEffectLoadParameter(sistemaParticulas.getBatches());
         assets.load("fogo.pfx", ParticleEffect.class, loadParam);
+        assets.load("flame.pfx", ParticleEffect.class, loadParam);
+        assets.load("royals.pfx", ParticleEffect.class, loadParam);
+        assets.load("highrate.pfx", ParticleEffect.class, loadParam);
+        assets.load("disease.pfx", ParticleEffect.class, loadParam);
+        assets.load("creativity.pfx", ParticleEffect.class, loadParam);
         assets.load("bolhas.pfx", ParticleEffect.class, loadParam);
-        
+        assets.load("bubbles.pfx", ParticleEffect.class, loadParam);
         // solicita carregamento da música
         musica = Gdx.audio.newMusic(Gdx.files.internal("zelda-potion-shop.mp3"));
 
@@ -104,18 +109,19 @@ public class CauldronGame extends ApplicationAdapter {
         sopa = caldeirao.getNode("topoDaSopa");
 
         // instancia, configura e dá início ao efeito de fogo
-        fogo = ((ParticleEffect) assets.get("fogo.pfx")).copy();
+        fogo = ((ParticleEffect) assets.get("highrate.pfx")).copy();
         fogo.init();
         fogo.start();
         fogo.translate(new Vector3(0, 0.1f, 0));
         sistemaParticulas.add(fogo);
-
-        // instancia, configura e dá início ao efeito das bolhas
-        // use o campo ParticleEffect bolhas definido na linha #38
-        // ...
-        // ...
-        // ...
         
+        
+        bolhas = ((ParticleEffect) assets.get("bubbles.pfx")).copy();
+        bolhas.init();
+        bolhas.start();
+        bolhas.translate(new Vector3(0, 1.0f, 0));
+        sistemaParticulas.add(bolhas);
+
         // começa a música
         musica.setLooping(true);
         musica.play();
